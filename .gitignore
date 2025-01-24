@@ -94,3 +94,6 @@ idir/
 
 spu_wheel.name
 *.whl
+
+# some exceptions
+# !libtfhe*.a
