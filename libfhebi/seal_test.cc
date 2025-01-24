@@ -74,7 +74,7 @@ inline void print_parameters(const seal::SEALContext &context) {
 }  // namespace
 
 TEST(SEAL_USE_TEST, CKKS) {
-  SPDLOG_INFO("CKKS test");
+  SPDLOG_INFO("CKKS test begin...");
 
   seal::EncryptionParameters parms(seal::scheme_type::ckks);
   size_t poly_modulus_degree = 8192;
@@ -85,4 +85,12 @@ TEST(SEAL_USE_TEST, CKKS) {
   seal::SEALContext context(parms);
   print_parameters(context);
   std::cout << std::endl;
+
+  SPDLOG_INFO("CKKS test end...");
+}
+
+TEST(TFHE_RUST_UST_TEST, TFHE) {
+  SPDLOG_INFO("TFHE-RUST test begin...");
+
+  SPDLOG_INFO("TFHE-RUST test end...");
 }

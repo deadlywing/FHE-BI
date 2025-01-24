@@ -1,4 +1,4 @@
-# Copyright 2024 Ant Group Co., Ltd.
+# Copyright 2021 Ant Group Co., Ltd.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,18 +11,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 load("//bazel:fhebi.bzl", "fhebi_cc_test")
 
 package(default_visibility = ["//visibility:public"])
 
-fhebi_cc_test(
-    name = "seal_test",
-    srcs = ["seal_test.cc"],
-    deps = [
-        "@seal",
-        "@spdlog",  # indeed, fhebi_cc_library has included this deps
-    ],
+cc_import(
+    name = "lib-tfhe-api",
+    hdrs = ["deps/tfhe.h"],
+    static_library =
+        "deps/libtfhe.a",
+    deps = [":lib-tfhe-buffer"],
+)
+
+cc_import(
+    name = "lib-tfhe-buffer",
+    hdrs = ["deps/tfhe-c-api-dynamic-buffer.h"],
+    static_library =
+        "deps/libtfhe_c_api_dynamic_buffer.a",
 )
 
 fhebi_cc_test(
@@ -34,16 +39,7 @@ fhebi_cc_test(
         "-lm",
     ],
     deps = [
-        "//libfhebi/backends/tfhe_rust:lib-tfhe-api",
-        "@spdlog",
-    ],
-)
-
-fhebi_cc_test(
-    name = "openfhe_test",
-    srcs = ["openfhe_test.cc"],
-    deps = [
-        "@openfhe//:pke",
+        ":lib-tfhe-api",
         "@spdlog",
     ],
 )

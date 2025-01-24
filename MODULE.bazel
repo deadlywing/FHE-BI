@@ -50,6 +50,7 @@ bazel_dep(name = "yacl", version = "20241212.0-871832a")
 
 fhebi_dependencies = use_extension("//bazel:defs.bzl", "non_module_dependencies")
 use_repo(fhebi_dependencies, "xtensor")
+use_repo(fhebi_dependencies, "openfhe")
 
 # test
 bazel_dep(name = "googletest", version = "1.15.2", dev_dependency = True)
